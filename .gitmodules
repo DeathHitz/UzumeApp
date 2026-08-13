@@ -1,0 +1,6 @@
+[submodule "vendor/uzume-core"]
+	path = vendor/uzume-core
+	url = https://github.com/DeathHitz/UzumeCore.git
+[submodule "vendor/uzume-users"]
+	path = vendor/uzume-users
+	url = https://github.com/DeathHitz/Uzume-Users.git
