@@ -1,6 +1,8 @@
 [submodule "vendor/uzume-core"]
 	path = vendor/uzume-core
 	url = https://github.com/DeathHitz/UzumeCore.git
+	branch = master
 [submodule "vendor/uzume-users"]
 	path = vendor/uzume-users
 	url = https://github.com/DeathHitz/Uzume-Users.git
+	branch = master

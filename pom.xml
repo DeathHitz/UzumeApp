@@ -14,7 +14,7 @@
 
     <modules>
         <module>vendor/uzume-core</module>
-        <module>vendor/users</module>
+        <module>vendor/uzume-users</module>
         <module>app</module>
     </modules>
 
@@ -22,5 +22,15 @@
         <maven.compiler.release>21</maven.compiler.release>
         <quarkus.platform.version>3.38.1</quarkus.platform.version>
     </properties>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.quarkus.platform</groupId>
+                <artifactId>quarkus-bom</artifactId>
+                <version>3.38.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

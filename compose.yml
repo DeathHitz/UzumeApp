@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: uzume-postgres
+    environment:
+      POSTGRES_DB: uzume
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+    ports:
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: uzume-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@user.com
+      PGADMIN_DEFAULT_PASSWORD: user
+    ports:
+      - "8080:80"
