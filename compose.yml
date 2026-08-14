@@ -1,18 +1,38 @@
 services:
+  app:
+    image: maven:3.9-eclipse-temurin-21
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - ~/.m2:/root/.m2
+
+    command: mvn -f dev-workspace.pom.xml -pl app -am compile io.quarkus.platform:quarkus-maven-plugin:3.38.1:dev
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres:18
     container_name: uzume-postgres
+
     environment:
       POSTGRES_DB: uzume
       POSTGRES_USER: user
       POSTGRES_PASSWORD: user
+
     ports:
       - "5432:5432"
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: uzume-pgadmin
+
     environment:
       PGADMIN_DEFAULT_EMAIL: user@user.com
       PGADMIN_DEFAULT_PASSWORD: user
+
     ports:
-      - "8080:80"
+      - "8081:80"
