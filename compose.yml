@@ -53,8 +53,11 @@ services:
       PGADMIN_DEFAULT_EMAIL: user@user.com
       PGADMIN_DEFAULT_PASSWORD: user
 
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     ports:
       - "8081:80"
 
 volumes:
   jwt_keys:
+  pgadmin_data:
