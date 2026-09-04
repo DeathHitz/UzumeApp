@@ -1,10 +1,26 @@
 services:
+  jwt-keys:
+    image: alpine:latest
+    volumes:
+    - jwt_keys:/keys
+
+    command: >
+      sh -c '
+        apk add --no-cache openssl &&
+        if [ ! -f /keys/privateKey.pem ]; then
+         openssl genpkey -algorithm RSA -out /keys/privateKey.pem -pkeyopt rsa_keygen_bits:2048 &&
+         openssl rsa -pubout -in /keys/privateKey.pem -out /keys/publicKey.pem;
+        fi
+      '
+
   app:
     image: maven:3.9-eclipse-temurin-21
     working_dir: /workspace
+
     volumes:
       - .:/workspace
       - ~/.m2:/root/.m2
+      - jwt_keys:/run/secrets/jwt:ro
 
     command: mvn -f dev-workspace.pom.xml -pl app -am compile io.quarkus.platform:quarkus-maven-plugin:3.38.1:dev
 
@@ -12,7 +28,10 @@ services:
       - "3000:3000"
 
     depends_on:
-      - postgres
+      jwt-keys:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_started
 
   postgres:
     image: postgres:18
@@ -36,3 +55,6 @@ services:
 
     ports:
       - "8081:80"
+
+volumes:
+  jwt_keys:
